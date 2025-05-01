@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <title>✨별나무 올라올라/꼬로록✨ 전용 족보</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-  <style>
+<meta charset="utf-8"/>
+<title>✨별나무 올라올라/꼬로록✨ 전용 족보</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&amp;display=swap" rel="stylesheet"/>
+<style>
     body {
       font-family: 'Noto Sans KR', sans-serif;
       background: linear-gradient(135deg, #1f1f2e, #2c2c3c);
@@ -106,6 +107,7 @@
       color: #fff;
     }
     .answer-text {
+  cursor: pointer;
       font-weight: bold;
       color: #ff6f61;
     }
@@ -114,6 +116,7 @@
       font-weight: bold;
     }
 .answer-text {
+  cursor: pointer;
   color: red;
   font-weight: bold;
   cursor: pointer;
@@ -121,31 +124,28 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>✨올라올라/꼬로록✨ 전용 족보</h1>
-    <div class="subtitle">🌟<b>별나무</b>✨</div>
-
-    <div class="controls">
-      <select id="gameType">
-        <option value="전체">게임선택</option>
-        <option value="올라올라">❤️올라올라❤️꼬로록❤️</option>
-        <option value="OX">❤️OX❤️XO❤️</option>
-        <option value="꽁꽁">❤️꽁꽁❤️</option>
-        <option value="가로세로">❤️가로세로❤️</option>
-      </select>
-      <input type="text" id="searchInput" placeholder="문제나 정답을 입력하세요" onkeyup="searchTable()" disabled>
-      <label>
-        <input type="checkbox" id="ignoreSpaces" />
+<div class="container">
+<h1>✨올라올라/꼬로록✨ 전용 족보</h1>
+<div class="subtitle">🌟<b>별나무</b>✨</div>
+<div class="controls">
+<select id="gameType">
+<option value="전체">게임선택</option>
+<option value="올라올라">❤️올라올라❤️꼬로록❤️</option>
+<option value="OX">❤️OX❤️XO❤️</option>
+<option value="꽁꽁">❤️꽁꽁❤️</option>
+<option value="가로세로">❤️가로세로❤️</option>
+</select>
+<input disabled="" id="searchInput" onkeyup="searchTable()" placeholder="문제나 정답을 입력하세요" type="text"/>
+<label>
+<input id="ignoreSpaces" type="checkbox">
         공백 무시
-      </label>
-      <button onclick="clearSearch()">🧽</button>
-    </div>
-
-    <div id="loadingMessage"></div>
-    <div id="quizBody"></div>
-  </div>
-
-  <script>
+      </input></label>
+<button onclick="clearSearch()">🧽</button>
+</div>
+<div id="loadingMessage"></div>
+<div id="quizBody"></div>
+</div>
+<script>
     const 올라올라문제 = [
 { type: '올라올라', question: '다음 야구 선수들 중에 1996년 일본 요미우리 자이언츠 입단 후 2005년 한화이글스로 이적한 선수는?', answer: '조성민' },
 { type: '올라올라', question: '심장부 또는 흉골 뒤쪽에 발작적으로 일어나는 조이는 것 같은 동통을 주증으로 하는 질병을 무엇이라고 하는가?', answer: '협심증' },
@@ -20933,6 +20933,24 @@ document.addEventListener("click", function (e) {
   }
 });
 
-  </script>
+  
+
+document.addEventListener("click", function (e) {
+  const target = e.target.closest(".answer-text");
+  if (target) {
+    e.preventDefault();
+    e.stopPropagation();
+    const text = target.innerText.replace(/^A\.?\s*/, "").trim();
+    navigator.clipboard.writeText(text).then(() => {
+      target.style.backgroundColor = "#333";
+      target.innerText = "✔ 복사됨: " + text;
+      setTimeout(() => {
+        target.innerText = "A. " + text;
+        target.style.backgroundColor = "";
+      }, 1000);
+    });
+  }
+});
+</script>
 </body>
 </html>
