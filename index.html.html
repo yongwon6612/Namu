@@ -20911,6 +20911,22 @@
         document.getElementById("quizBody").innerHTML = "";
       }
     });
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("answer-text")) {
+    e.preventDefault();
+    e.stopPropagation();
+    const text = e.target.innerText.replace(/^A\.?\s*/, "").trim();
+    navigator.clipboard.writeText(text).then(() => {
+      e.target.style.backgroundColor = "#333";
+      e.target.innerText = "✔ 복사됨: " + text;
+      setTimeout(() => {
+        e.target.innerText = "A. " + text;
+        e.target.style.backgroundColor = "";
+      }, 1000);
+    });
+  }
+});
+
   </script>
 </body>
 </html>
