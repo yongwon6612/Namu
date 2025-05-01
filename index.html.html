@@ -113,6 +113,11 @@
       color: #4fc3f7;
       font-weight: bold;
     }
+.answer-text {
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+}
   </style>
 </head>
 <body>
@@ -20912,16 +20917,17 @@
       }
     });
 document.addEventListener("click", function (e) {
-  if (e.target.classList.contains("answer-text")) {
+  const target = e.target.closest(".answer-text");
+  if (target) {
     e.preventDefault();
     e.stopPropagation();
-    const text = e.target.innerText.replace(/^A\.?\s*/, "").trim();
+    const text = target.innerText.replace(/^A\.?\s*/, "").trim();
     navigator.clipboard.writeText(text).then(() => {
-      e.target.style.backgroundColor = "#333";
-      e.target.innerText = "✔ 복사됨: " + text;
+      target.style.backgroundColor = "#333";
+      target.innerText = "✔ 복사됨: " + text;
       setTimeout(() => {
-        e.target.innerText = "A. " + text;
-        e.target.style.backgroundColor = "";
+        target.innerText = "A. " + text;
+        target.style.backgroundColor = "";
       }, 1000);
     });
   }
